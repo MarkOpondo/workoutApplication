@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 from app import create_app, db
 from app.models import Exercise, Workout, WorkoutExercises
 
-app = create_app()
+app = create_app('development')
 
 with app.app_context():
     db.session.query(Exercise).delete()
