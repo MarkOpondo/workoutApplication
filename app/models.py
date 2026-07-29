@@ -15,7 +15,7 @@ class Workout(db.Model):
     __tablename__ = 'workout'
 
     id = db.Column(db.Integer, primary_key=True)
-    date = db.column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    date = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     duration_minutes = db.Column(db.Integer, default=0)
     notes = db.Column(db.String(200))
 
@@ -23,8 +23,8 @@ class WorkoutExercises(db.Model):
     __tablename__ = 'workoutexercises'
 
     id = db.Column(db.Integer, primary_key=True)
-    workout_id = db.Column(db.Integer, db.ForeignKey('workout.id'))
-    exercise_id = db.Column(db.Integer, db.ForeignKey('exercise.id'))
+    workout_id = db.Column(db.Integer, db.ForeignKey('workout.id'), nullable=False)
+    exercise_id = db.Column(db.Integer, db.ForeignKey('exercise.id'), nullable=False)
     reps = db.Column(db.Integer, default=0)
     sets = db.Column(db.Integer, default=0)
     duration = db.Column(db.Integer, default=0)
