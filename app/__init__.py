@@ -14,6 +14,10 @@ def create_app(config_name='development'):
 
     migrate = Migrate(app, db)
     db.init_app(app)
+
+    with app.app_context():
+        from . import models
+
     @app.get("/")
     def index():
         return jsonify(message="My workout app")
