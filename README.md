@@ -79,3 +79,23 @@ All endpoints are registered under the structural `/api` path routing namespace.
   * **Description:** Appends an exercise profile to an existing workout ledger instance. Expects optional JSON configurations mapping performance rows (`reps`, `sets`, `duration_seconds`).
 
 ---
+
+## Project Dependencies Configuration (`Pipfile`)
+
+Your environment dependencies map precisely inside your `Pipfile` configuration layout:
+
+```toml
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+werkzeug = "*"
+flask = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.14"
+```
