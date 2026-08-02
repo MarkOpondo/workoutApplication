@@ -12,6 +12,11 @@ class Exercise(db.Model):
 
     workout_sessions = db.relationship('WorkoutExercises', back_populates='exercise', cascade="all, delete-orphan")
 
+    __table_args__ = (
+        db.CheckConstraint("length(name) >= 2", name="ck_exercise_name_min_len"),
+        db.CheckConstraint("length(category) >= 2", name="ck_exercise_category_min_len"),
+    )
+
 
 class Workout(db.Model):
     __tablename__ = 'workout'
@@ -23,6 +28,10 @@ class Workout(db.Model):
 
     exercises = db.relationship('WorkoutExercises', back_populates='workout', cascade="all, delete-orphan")
 
+    __table_args__ = (
+        db.CheckConstraint("duration_minutes >= 0", name="ck_workout_duration_is_non_negative"),
+    )
+
 class WorkoutExercises(db.Model):
     __tablename__ = 'workoutexercises'
 
@@ -31,7 +40,11 @@ class WorkoutExercises(db.Model):
     exercise_id = db.Column(db.Integer, db.ForeignKey('exercise.id'), nullable=False)
     reps = db.Column(db.Integer, default=0)
     sets = db.Column(db.Integer, default=0)
-    duration = db.Column(db.Integer, default=0)
+    duration_seconds = db.Column(db.Integer, default=0)
 
     workout = db.relationship('Workout', back_populates='exercises')
     exercise = db.relationship('Exercise', back_populates='workout_sessions')
+
+    __table_args__ = (
+        db.CheckConstraint("duration_seconds >= 0", name="ck_workout_exercises_duration_is_non_negative"),
+    )    
