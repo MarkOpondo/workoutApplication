@@ -33,5 +33,5 @@ class WorkoutExercises(db.Model):
     sets = db.Column(db.Integer, default=0)
     duration = db.Column(db.Integer, default=0)
 
-    workout = db.relationship('Workout', back_populates='exercise')
-    exercise = db.relationship('Exercise', backpopulates='workout_sessions')
+    workout = db.relationship('Workout', back_populates='exercises')
+    exercise = db.relationship('Exercise', back_populates='workout_sessions')

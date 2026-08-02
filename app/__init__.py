@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy import MetaData
 
+
 from config import config_by_name
 
 metadata = MetaData()
@@ -17,6 +18,11 @@ def create_app(config_name='development'):
 
     with app.app_context():
         from . import models
+
+
+    from app.routes import bp as api_bp
+
+    app.register_blueprint(api_bp)
 
     @app.get("/")
     def index():
